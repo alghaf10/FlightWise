@@ -1,0 +1,150 @@
+{
+  "date": "2026-04-15",
+  "metar_taf_station": "KAPA",
+  "time_slots": [
+    {"id": "slot_a", "start": "14:00", "end": "16:00", "label": "UTC block A (matches live TAF day when run)"},
+    {"id": "slot_b", "start": "16:00", "end": "18:00", "label": "UTC block B"},
+    {"id": "slot_c", "start": "18:00", "end": "20:00", "label": "UTC block C"},
+    {"id": "slot_d", "start": "20:00", "end": "22:00", "label": "UTC block D"}
+  ],
+  "students": [
+    {
+      "id": "stu_priv_01",
+      "name": "Morgan Ellis",
+      "stage": "private",
+      "lessons_completed": 2,
+      "hours_total": 3.8,
+      "last_lesson_days_ago": 4,
+      "constraints": {"pref_morning": true}
+    },
+    {
+      "id": "stu_priv_02",
+      "name": "Riley Chen",
+      "stage": "private",
+      "lessons_completed": 11,
+      "hours_total": 17.1,
+      "last_lesson_days_ago": 6,
+      "constraints": {}
+    },
+    {
+      "id": "stu_priv_03",
+      "name": "Jamal Haddad",
+      "stage": "private",
+      "lessons_completed": 0,
+      "hours_total": 0,
+      "last_lesson_days_ago": null,
+      "constraints": {"first_solo_pending": true}
+    },
+    {
+      "id": "stu_ifr_01",
+      "name": "Taylor Stone",
+      "stage": "instrument",
+      "lessons_completed": 28,
+      "hours_total": 62.4,
+      "last_lesson_days_ago": 9,
+      "constraints": {"ipc_month": true}
+    },
+    {
+      "id": "stu_cml_01",
+      "name": "Casey Morales",
+      "stage": "commercial",
+      "lessons_completed": 18,
+      "hours_total": 118.0,
+      "last_lesson_days_ago": 3,
+      "constraints": {}
+    }
+  ],
+  "instructors": [
+    {
+      "id": "ins_lead",
+      "name": "Jordan Vance",
+      "ratings": ["cfi", "cfii", "private", "instrument", "commercial"],
+      "availability": {
+        "slot_a": ["any"],
+        "slot_b": ["any"],
+        "slot_c": ["ac_c172", "ac_pa28"],
+        "slot_d": ["ac_c172"]
+      }
+    },
+    {
+      "id": "ins_junior",
+      "name": "Avery Bloom",
+      "ratings": ["cfi", "private"],
+      "availability": {
+        "slot_a": ["ac_sr22"],
+        "slot_b": ["ac_sr22", "ac_c172"],
+        "slot_c": ["any"],
+        "slot_d": ["ac_pa28", "ac_sr22"]
+      }
+    },
+    {
+      "id": "ins_parttime",
+      "name": "Sam Rivera",
+      "ratings": ["cfi", "private", "instrument"],
+      "availability": {
+        "slot_a": ["ac_c172"],
+        "slot_b": [],
+        "slot_c": ["any"],
+        "slot_d": []
+      }
+    }
+  ],
+  "aircraft": [
+    {
+      "id": "ac_c172",
+      "tail_number": "N172SX",
+      "type": "single_engine",
+      "maintenance_due_hours": 100.0,
+      "hours_since_inspection": 88.0,
+      "constraints": {"hobbs_sync": true}
+    },
+    {
+      "id": "ac_pa28",
+      "tail_number": "N44PA",
+      "type": "single_engine",
+      "maintenance_due_hours": 80.0,
+      "hours_since_inspection": 12.0,
+      "constraints": {}
+    },
+    {
+      "id": "ac_sr22",
+      "tail_number": "N225SR",
+      "type": "single_engine",
+      "maintenance_due_hours": 120.0,
+      "hours_since_inspection": 102.0,
+      "constraints": {"g1000_fleet": true}
+    }
+  ],
+  "lesson_types": [
+    {
+      "id": "dual_vfr",
+      "name": "Dual VFR",
+      "min_stage": "private",
+      "suitable_stages": ["private", "commercial"]
+    },
+    {
+      "id": "pattern_work",
+      "name": "Pattern / Landings",
+      "min_stage": "private",
+      "suitable_stages": ["private"]
+    },
+    {
+      "id": "slow_flight_stalls",
+      "name": "Slow flight & stalls",
+      "min_stage": "private",
+      "suitable_stages": ["private", "commercial"]
+    },
+    {
+      "id": "ifr_vectors",
+      "name": "IFR vectors / approaches",
+      "min_stage": "instrument",
+      "suitable_stages": ["instrument", "commercial"]
+    },
+    {
+      "id": "commercial_landing",
+      "name": "Commercial maneuvers",
+      "min_stage": "commercial",
+      "suitable_stages": ["commercial"]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "date": "2026-04-01",
+  "time_slots": [
+    {"id": "morning", "start": "09:00", "end": "11:00", "label": "Morning"}
+  ],
+  "weather": {
+    "wind_kts": 10,
+    "visibility_sm": 10,
+    "ceiling_ft": 6000,
+    "precipitation": false
+  },
+  "students": [
+    {
+      "id": "stu_1",
+      "name": "Alex Rivera",
+      "stage": "private",
+      "lessons_completed": 5,
+      "hours_total": 8.0,
+      "last_lesson_days_ago": 6
+    }
+  ],
+  "instructors": [
+    {
+      "id": "ins_1",
+      "name": "Jordan Lee",
+      "ratings": ["cfi", "private"],
+      "availability": {"morning": ["any"]}
+    }
+  ],
+  "aircraft": [
+    {
+      "id": "ac_1",
+      "tail_number": "N123AB",
+      "type": "single_engine",
+      "hours_since_inspection": 40.0,
+      "maintenance_due_hours": 100.0
+    }
+  ],
+  "lesson_types": []
+}

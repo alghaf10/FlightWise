@@ -1,0 +1,1 @@
+"""FlightWise application package."""
