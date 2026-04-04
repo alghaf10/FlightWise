@@ -94,7 +94,7 @@ def build_solver_metrics(opt: dict[str, Any]) -> SolverMetrics:
     return SolverMetrics(
         optimization_status=opt.get("status"),
         solver_status=opt.get("solver_status"),
-        objective_value=opt.get("objective"),
+        objective_value=opt.get("objective_value", opt.get("objective")),
     )
 
 
