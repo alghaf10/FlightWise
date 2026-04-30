@@ -1,0 +1,118 @@
+{
+  "date": "2026-04-15",
+  "time_slots": [
+    {"id": "t08", "start": "08:00", "end": "10:00", "label": "Block 1"},
+    {"id": "t10", "start": "10:00", "end": "12:00", "label": "Block 2"},
+    {"id": "t13", "start": "13:00", "end": "15:00", "label": "Block 3"},
+    {"id": "t15", "start": "15:00", "end": "17:00", "label": "Block 4"}
+  ],
+  "weather": {
+    "wind_kts": 8,
+    "visibility_sm": 10,
+    "ceiling_ft": 8000,
+    "precipitation": false,
+    "notes": "Baseline VFR; per-slot overrides below"
+  },
+  "weather_by_slot": {
+    "t15": {
+      "wind_kts": 16,
+      "visibility_sm": 8,
+      "ceiling_ft": 4500,
+      "precipitation": false
+    }
+  },
+  "students": [
+    {
+      "id": "stu_a",
+      "name": "Alice Nguyen",
+      "stage": "private",
+      "lessons_completed": 12,
+      "hours_total": 18.2,
+      "last_lesson_days_ago": 4
+    },
+    {
+      "id": "stu_b",
+      "name": "Ben Carter",
+      "stage": "private",
+      "lessons_completed": 4,
+      "hours_total": 6.0,
+      "last_lesson_days_ago": 10
+    },
+    {
+      "id": "ifu_c",
+      "name": "Chris Patel",
+      "stage": "instrument",
+      "lessons_completed": 22,
+      "hours_total": 45.0,
+      "last_lesson_days_ago": 7
+    },
+    {
+      "id": "stu_d",
+      "name": "Dana Williams",
+      "stage": "private",
+      "lessons_completed": 0,
+      "hours_total": 0.0,
+      "last_lesson_days_ago": null
+    }
+  ],
+  "instructors": [
+    {
+      "id": "ins_pat",
+      "name": "Pat Okada",
+      "ratings": ["cfi", "private", "instrument"],
+      "availability": {
+        "t08": ["any"],
+        "t10": ["any"],
+        "t13": ["any"],
+        "t15": ["any"]
+      }
+    },
+    {
+      "id": "ins_quinn",
+      "name": "Quinn Brooks",
+      "ratings": ["cfi", "private"],
+      "availability": {
+        "t08": ["ac_172b"],
+        "t10": ["ac_172b", "ac_sr20"],
+        "t13": ["any"],
+        "t15": ["ac_sr20"]
+      }
+    }
+  ],
+  "aircraft": [
+    {
+      "id": "ac_172b",
+      "tail_number": "N172WB",
+      "type": "single_engine",
+      "hours_since_inspection": 38.5,
+      "maintenance_due_hours": 100.0
+    },
+    {
+      "id": "ac_sr20",
+      "tail_number": "N44SR",
+      "type": "single_engine",
+      "hours_since_inspection": 22.0,
+      "maintenance_due_hours": 80.0
+    }
+  ],
+  "lesson_types": [
+    {
+      "id": "dual_vfr",
+      "name": "Dual VFR",
+      "min_stage": "private",
+      "suitable_stages": ["private", "instrument", "commercial"]
+    },
+    {
+      "id": "pattern_work",
+      "name": "Pattern / Landings",
+      "min_stage": "private",
+      "suitable_stages": ["private"]
+    },
+    {
+      "id": "ifr_vectors",
+      "name": "IFR vectors / approaches",
+      "min_stage": "instrument",
+      "suitable_stages": ["instrument", "commercial"]
+    }
+  ]
+}

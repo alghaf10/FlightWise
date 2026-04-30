@@ -1,0 +1,58 @@
+{
+  "date": "2026-06-14",
+  "time_slots": [
+    {"id": "b08", "start": "08:00", "end": "10:00", "label": "Block 08–10"},
+    {"id": "b10", "start": "10:00", "end": "12:00", "label": "Block 10–12"},
+    {"id": "b12", "start": "12:00", "end": "14:00", "label": "Block 12–14"},
+    {"id": "b14", "start": "14:00", "end": "16:00", "label": "Block 14–16"},
+    {"id": "b16", "start": "16:00", "end": "18:00", "label": "Block 16–18"},
+    {"id": "b18", "start": "18:00", "end": "20:00", "label": "Block 18–20"}
+  ],
+  "weather": {
+    "wind_kts": 10,
+    "visibility_sm": 10,
+    "ceiling_ft": 6500,
+    "precipitation": false,
+    "notes": "Baseline VFR; afternoon slightly bumpier"
+  },
+  "weather_by_slot": {
+    "b16": {"wind_kts": 18, "visibility_sm": 8, "ceiling_ft": 4200, "precipitation": false},
+    "b18": {"wind_kts": 12, "visibility_sm": 10, "ceiling_ft": 5000, "precipitation": false}
+  },
+  "students": [
+    {"id": "stu_w1", "name": "Mia Torres", "stage": "private", "lessons_completed": 3, "hours_total": 5.2, "last_lesson_days_ago": 5},
+    {"id": "stu_w2", "name": "Ethan Brooks", "stage": "private", "lessons_completed": 14, "hours_total": 22.0, "last_lesson_days_ago": 3},
+    {"id": "stu_w3", "name": "Priya Shah", "stage": "private", "lessons_completed": 0, "hours_total": 0, "last_lesson_days_ago": null},
+    {"id": "stu_w4", "name": "Logan Meyer", "stage": "instrument", "lessons_completed": 30, "hours_total": 58.0, "last_lesson_days_ago": 8},
+    {"id": "stu_w5", "name": "Sofia Reyes", "stage": "instrument", "lessons_completed": 22, "hours_total": 48.5, "last_lesson_days_ago": 6},
+    {"id": "stu_w6", "name": "Noah Kim", "stage": "commercial", "lessons_completed": 12, "hours_total": 132.0, "last_lesson_days_ago": 4}
+  ],
+  "instructors": [
+    {
+      "id": "ins_senior",
+      "name": "Riley Morgan",
+      "ratings": ["cfi", "cfii", "private", "instrument", "commercial"],
+      "availability": {
+        "b08": ["any"], "b10": ["any"], "b12": ["any"], "b14": ["any"], "b16": ["any"], "b18": ["any"]
+      }
+    },
+    {
+      "id": "ins_junior",
+      "name": "Casey Lin",
+      "ratings": ["cfi", "private", "instrument"],
+      "availability": {
+        "b08": ["any"], "b10": ["any"], "b12": ["any"], "b14": ["any"], "b16": ["any"], "b18": ["any"]
+      }
+    }
+  ],
+  "aircraft": [
+    {"id": "ac_c172", "tail_number": "N5288C", "type": "single_engine", "hours_since_inspection": 55.0, "maintenance_due_hours": 100.0},
+    {"id": "ac_pa28", "tail_number": "N771PA", "type": "single_engine", "hours_since_inspection": 18.0, "maintenance_due_hours": 80.0}
+  ],
+  "lesson_types": [
+    {"id": "dual_vfr", "name": "Dual VFR", "min_stage": "private", "suitable_stages": ["private", "commercial"]},
+    {"id": "pattern_work", "name": "Pattern / Landings", "min_stage": "private", "suitable_stages": ["private"]},
+    {"id": "ifr_vectors", "name": "IFR vectors / approaches", "min_stage": "instrument", "suitable_stages": ["instrument", "commercial"]},
+    {"id": "commercial_landing", "name": "Commercial maneuvers", "min_stage": "commercial", "suitable_stages": ["commercial"]}
+  ]
+}

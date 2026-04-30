@@ -1,0 +1,55 @@
+{
+  "date": "2026-07-03",
+  "time_slots": [
+    {"id": "dawn", "start": "06:00", "end": "08:00", "label": "Dawn patrol"},
+    {"id": "morning", "start": "08:00", "end": "10:00", "label": "Morning"},
+    {"id": "mid", "start": "10:00", "end": "12:00", "label": "Late morning"},
+    {"id": "pm", "start": "13:00", "end": "15:00", "label": "Afternoon"},
+    {"id": "golden", "start": "17:00", "end": "19:00", "label": "Golden hour"}
+  ],
+  "weather": {
+    "wind_kts": 6,
+    "visibility_sm": 10,
+    "ceiling_ft": 8000,
+    "precipitation": false,
+    "notes": "Calm morning; building convection PM"
+  },
+  "weather_by_slot": {
+    "golden": {"wind_kts": 20, "visibility_sm": 8, "ceiling_ft": 4500, "precipitation": false}
+  },
+  "students": [
+    {"id": "sun_1", "name": "River Nash", "stage": "private", "lessons_completed": 7, "hours_total": 11.0, "last_lesson_days_ago": 4},
+    {"id": "sun_2", "name": "Skylar Ford", "stage": "private", "lessons_completed": 11, "hours_total": 16.5, "last_lesson_days_ago": 6},
+    {"id": "sun_3", "name": "Quinn Ibarra", "stage": "instrument", "lessons_completed": 20, "hours_total": 44.0, "last_lesson_days_ago": 8},
+    {"id": "sun_4", "name": "Rowan Pike", "stage": "instrument", "lessons_completed": 26, "hours_total": 61.0, "last_lesson_days_ago": 2},
+    {"id": "sun_5", "name": "Parker Vale", "stage": "commercial", "lessons_completed": 15, "hours_total": 178.0, "last_lesson_days_ago": 5}
+  ],
+  "instructors": [
+    {
+      "id": "ins_dawn",
+      "name": "Morgan Ellis",
+      "ratings": ["cfi", "cfii", "private", "instrument", "commercial"],
+      "availability": {
+        "dawn": ["any"], "morning": ["any"], "mid": ["any"], "pm": ["any"], "golden": ["any"]
+      }
+    },
+    {
+      "id": "ins_day",
+      "name": "Jamie Cruz",
+      "ratings": ["cfi", "private", "instrument"],
+      "availability": {
+        "dawn": ["any"], "morning": ["any"], "mid": ["any"], "pm": ["any"], "golden": ["any"]
+      }
+    }
+  ],
+  "aircraft": [
+    {"id": "sun_ac1", "tail_number": "N901SN", "type": "single_engine", "hours_since_inspection": 33.0, "maintenance_due_hours": 100.0},
+    {"id": "sun_ac2", "tail_number": "N902SN", "type": "single_engine", "hours_since_inspection": 71.0, "maintenance_due_hours": 100.0}
+  ],
+  "lesson_types": [
+    {"id": "dual_vfr", "name": "Dual VFR", "min_stage": "private", "suitable_stages": ["private", "commercial"]},
+    {"id": "pattern_work", "name": "Pattern / Landings", "min_stage": "private", "suitable_stages": ["private"]},
+    {"id": "ifr_vectors", "name": "IFR vectors / approaches", "min_stage": "instrument", "suitable_stages": ["instrument", "commercial"]},
+    {"id": "commercial_landing", "name": "Commercial maneuvers", "min_stage": "commercial", "suitable_stages": ["commercial"]}
+  ]
+}

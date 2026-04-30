@@ -1,0 +1,66 @@
+{
+  "date": "2026-05-22",
+  "time_slots": [
+    {"id": "hub1", "start": "07:00", "end": "09:30", "label": "Early hub"},
+    {"id": "hub2", "start": "09:30", "end": "12:00", "label": "Morning hub"},
+    {"id": "hub3", "start": "12:00", "end": "14:30", "label": "Midday hub"},
+    {"id": "hub4", "start": "14:30", "end": "17:00", "label": "Afternoon hub"},
+    {"id": "hub5", "start": "17:00", "end": "19:30", "label": "Evening hub"}
+  ],
+  "weather": {
+    "wind_kts": 14,
+    "visibility_sm": 10,
+    "ceiling_ft": 5500,
+    "precipitation": false,
+    "notes": "Gusty but VFR; one marginal block below"
+  },
+  "weather_by_slot": {
+    "hub4": {"wind_kts": 24, "visibility_sm": 6, "ceiling_ft": 3200, "precipitation": false}
+  },
+  "students": [
+    {"id": "hs_a", "name": "Avery Cole", "stage": "private", "lessons_completed": 6, "hours_total": 9.0, "last_lesson_days_ago": 7},
+    {"id": "hs_b", "name": "Blake Ortiz", "stage": "private", "lessons_completed": 9, "hours_total": 14.5, "last_lesson_days_ago": 2},
+    {"id": "hs_c", "name": "Cameron Wu", "stage": "private", "lessons_completed": 1, "hours_total": 2.0, "last_lesson_days_ago": 11},
+    {"id": "hs_d", "name": "Drew Falk", "stage": "instrument", "lessons_completed": 25, "hours_total": 52.0, "last_lesson_days_ago": 5},
+    {"id": "hs_e", "name": "Emery Stone", "stage": "instrument", "lessons_completed": 18, "hours_total": 41.0, "last_lesson_days_ago": 9},
+    {"id": "hs_f", "name": "Finley Hart", "stage": "commercial", "lessons_completed": 8, "hours_total": 205.0, "last_lesson_days_ago": 3},
+    {"id": "hs_g", "name": "Gray Park", "stage": "private", "lessons_completed": 4, "hours_total": 6.5, "last_lesson_days_ago": 14}
+  ],
+  "instructors": [
+    {
+      "id": "ins_hub_lead",
+      "name": "Jordan Voss",
+      "ratings": ["cfi", "cfii", "private", "instrument", "commercial"],
+      "availability": {
+        "hub1": ["any"], "hub2": ["any"], "hub3": ["any"], "hub4": ["any"], "hub5": ["any"]
+      }
+    },
+    {
+      "id": "ins_hub_b",
+      "name": "Taylor Ng",
+      "ratings": ["cfi", "private", "instrument"],
+      "availability": {
+        "hub1": [], "hub2": [], "hub3": [], "hub4": [], "hub5": []
+      }
+    },
+    {
+      "id": "ins_hub_c",
+      "name": "Reese Dalton",
+      "ratings": ["cfi", "private"],
+      "availability": {
+        "hub1": [], "hub2": [], "hub3": [], "hub4": [], "hub5": []
+      }
+    }
+  ],
+  "aircraft": [
+    {"id": "hs_ac1", "tail_number": "N112HS", "type": "single_engine", "hours_since_inspection": 42.0, "maintenance_due_hours": 100.0},
+    {"id": "hs_ac2", "tail_number": "N334HS", "type": "single_engine", "hours_since_inspection": 95.0, "maintenance_due_hours": 100.0},
+    {"id": "hs_ac3", "tail_number": "N556HS", "type": "single_engine", "hours_since_inspection": 8.0, "maintenance_due_hours": 50.0}
+  ],
+  "lesson_types": [
+    {"id": "dual_vfr", "name": "Dual VFR", "min_stage": "private", "suitable_stages": ["private", "commercial"]},
+    {"id": "slow_flight", "name": "Slow flight & stalls", "min_stage": "private", "suitable_stages": ["private"]},
+    {"id": "ifr_vectors", "name": "IFR vectors / approaches", "min_stage": "instrument", "suitable_stages": ["instrument", "commercial"]},
+    {"id": "commercial_landing", "name": "Commercial maneuvers", "min_stage": "commercial", "suitable_stages": ["commercial"]}
+  ]
+}

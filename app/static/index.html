@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlightWise UI</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-soft: #f8fbff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: #dbe5f0;
+      --primary: #2563eb;
+      --primary-strong: #1d4ed8;
+      --success-bg: #ecfdf3;
+      --success-line: #86efac;
+      --success-text: #166534;
+      --danger-bg: #fef2f2;
+      --danger-line: #fca5a5;
+      --danger-text: #b91c1c;
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Inter", Arial, sans-serif;
+      margin: 0;
+      background: radial-gradient(circle at 20% 0%, #dbeafe 0%, #eff6ff 24%, var(--bg) 55%);
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(120deg, #1e40af 0%, #2563eb 55%, #3b82f6 100%);
+      color: #fff;
+      padding: 20px 26px;
+      box-shadow: var(--shadow);
+    }
+    h1 { margin: 0; font-size: 24px; letter-spacing: 0.2px; }
+    h2 { margin: 0 0 12px; font-size: 18px; }
+    main { max-width: 1240px; margin: 0 auto; padding: 20px; }
+    section {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 4px 6px 4px 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+    button:hover { background: var(--primary-strong); transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+    #statusBox {
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+    #statusBox.error { background: var(--danger-bg); border-color: var(--danger-line); color: var(--danger-text); }
+    #statusBox.success { background: var(--success-bg); border-color: var(--success-line); color: var(--success-text); }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap: 14px; }
+    @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, minmax(180px, 1fr)); } }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    .listBox {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 160px;
+      max-height: 300px;
+      overflow: auto;
+      background: var(--surface-soft);
+    }
+    .item { display: block; padding: 6px 0; font-size: 14px; border-bottom: 1px dashed #e5edf6; }
+    .item:last-child { border-bottom: 0; }
+    .muted { color: var(--muted); font-size: 13px; }
+    label.inputLabel { display: inline-block; margin: 6px 10px 6px 0; font-size: 14px; }
+    input[type="number"], input[type="text"], input[type="date"], input[type="time"], select, textarea {
+      padding: 7px 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+    input[type="number"] { width: 100px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    th, td { border-bottom: 1px solid #e2e8f0; padding: 9px; text-align: left; font-size: 14px; }
+    th { background: #eff6ff; font-weight: 700; color: #1e3a8a; }
+    tr:hover td { background: #f8fbff; }
+    pre {
+      white-space: pre-wrap;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    @media (max-width: 900px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+    .card {
+      background: linear-gradient(160deg, #ffffff 0%, #f8fbff 100%);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .card strong { display: block; font-size: 22px; margin-top: 4px; color: #1d4ed8; }
+    .createGrid { display: grid; grid-template-columns: repeat(2, minmax(280px, 1fr)); gap: 12px; }
+    @media (max-width: 900px) { .createGrid { grid-template-columns: 1fr; } }
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      padding: 10px;
+    }
+    details[open] { box-shadow: inset 0 0 0 1px #bfdbfe; }
+    details summary { cursor: pointer; font-weight: 700; color: #1e3a8a; }
+    .fieldRow { display: grid; grid-template-columns: repeat(2, minmax(170px, 1fr)); gap: 8px; margin-top: 8px; }
+    .fieldRow label { font-size: 13px; display: flex; flex-direction: column; gap: 4px; color: #334155; }
+    .fieldRow textarea { min-height: 70px; font-family: Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FlightWise UI v0.3.0 - Database Resource Selection Enabled</h1>
+    <div class="muted" style="color:#dbeafe;">LLM explanations, if enabled, run only after deterministic optimization.</div>
+  </header>
+
+  <main>
+    <div id="statusBox">Ready. Click "Load Database Records" or "Seed Demo Data".</div>
+
+    <section>
+      <h2>Controls</h2>
+      <button id="seedButton" type="button">Seed Demo Data</button>
+      <button id="loadButton" type="button">Load Database Records</button>
+      <button id="generateButton" type="button">Generate Schedule From Selected Resources</button>
+    </section>
+
+    <section>
+      <h2>Add New Resource</h2>
+      <div class="createGrid">
+        <details open>
+          <summary>Add Student</summary>
+          <div class="fieldRow">
+            <label>id <input id="newStudentId" type="text" value="stu_new_demo" /></label>
+            <label>name <input id="newStudentName" type="text" value="New Demo Student" /></label>
+            <label>stage <input id="newStudentStage" type="text" value="private" /></label>
+            <label>lessons_completed <input id="newStudentLessons" type="number" value="5" /></label>
+            <label>hours_total <input id="newStudentHours" type="number" step="0.1" value="8" /></label>
+            <label>last_lesson_days_ago <input id="newStudentLastDays" type="number" value="4" /></label>
+            <label>readiness_score <input id="newStudentReadiness" type="number" step="0.01" value="0.70" /></label>
+            <label>priority <input id="newStudentPriority" type="number" value="50" /></label>
+            <label style="grid-column:1 / span 2;">weak_maneuvers (comma-separated)
+              <input id="newStudentWeak" type="text" value="landings, radio calls" />
+            </label>
+            <label><input id="newStudentActive" type="checkbox" checked /> active</label>
+          </div>
+          <button id="createStudentButton" type="button">Create Student</button>
+        </details>
+
+        <details>
+          <summary>Add Instructor</summary>
+          <div class="fieldRow">
+            <label>id <input id="newInstructorId" type="text" value="ins_new_demo" /></label>
+            <label>name <input id="newInstructorName" type="text" value="New Demo Instructor" /></label>
+            <label style="grid-column:1 / span 2;">ratings (comma-separated)
+              <input id="newInstructorRatings" type="text" value="cfi, private, instrument" />
+            </label>
+            <label>max_daily_blocks <input id="newInstructorBlocks" type="number" value="4" /></label>
+            <label><input id="newInstructorActive" type="checkbox" checked /> active</label>
+            <label style="grid-column:1 / span 2;">
+              <input id="newInstructorAllSlots" type="checkbox" checked /> Available for all loaded time slots
+            </label>
+            <label style="grid-column:1 / span 2;">availability JSON override (optional)
+              <textarea id="newInstructorAvailabilityJson" placeholder='{"demo_b1":["any"]}'></textarea>
+            </label>
+          </div>
+          <button id="createInstructorButton" type="button">Create Instructor</button>
+        </details>
+
+        <details>
+          <summary>Add Aircraft</summary>
+          <div class="fieldRow">
+            <label>id <input id="newAircraftId" type="text" value="ac_new_demo" /></label>
+            <label>tail_number <input id="newAircraftTail" type="text" value="N555FW" /></label>
+            <label>type <input id="newAircraftType" type="text" value="single_engine" /></label>
+            <label>hours_since_inspection <input id="newAircraftHoursSince" type="number" step="0.1" value="20" /></label>
+            <label>maintenance_due_hours <input id="newAircraftMaintDue" type="number" step="0.1" value="100" /></label>
+            <label>reliability_score <input id="newAircraftReliability" type="number" step="0.01" value="0.90" /></label>
+            <label>maintenance_status <input id="newAircraftMaintStatus" type="text" value="good" /></label>
+            <label><input id="newAircraftDispatchable" type="checkbox" checked /> dispatchable</label>
+            <label><input id="newAircraftActive" type="checkbox" checked /> active</label>
+          </div>
+          <button id="createAircraftButton" type="button">Create Aircraft</button>
+        </details>
+
+        <details>
+          <summary>Add Time Slot</summary>
+          <div class="fieldRow">
+            <label>id <input id="newSlotId" type="text" value="demo_b6" /></label>
+            <label>label <input id="newSlotLabel" type="text" value="Late Evening" /></label>
+            <label>start <input id="newSlotStart" type="time" value="18:00" /></label>
+            <label>end <input id="newSlotEnd" type="time" value="20:00" /></label>
+            <label><input id="newSlotActive" type="checkbox" checked /> active</label>
+          </div>
+          <button id="createSlotButton" type="button">Create Time Slot</button>
+        </details>
+      </div>
+    </section>
+
+    <section>
+      <h2>Weather</h2>
+      <label class="inputLabel">Station ID <input id="stationInput" type="text" value="KLAF" style="width:90px;" /></label>
+      <label class="inputLabel">Date <input id="dateInput" type="date" /></label>
+      <label class="inputLabel">Time <input id="timeInput" type="time" /></label>
+      <label class="inputLabel">Mode
+        <select id="modeInput">
+          <option value="auto">Auto from METAR/TAF</option>
+          <option value="manual">Manual fallback</option>
+        </select>
+      </label>
+      <br/>
+      <label class="inputLabel">wind_kts <input id="windInput" type="number" value="10" /></label>
+      <label class="inputLabel">visibility_sm <input id="visibilityInput" type="number" value="10" step="0.1" /></label>
+      <label class="inputLabel">ceiling_ft <input id="ceilingInput" type="number" value="5000" /></label>
+      <label class="inputLabel"><input id="precipInput" type="checkbox" /> precipitation</label>
+      <div class="muted" id="weatherSummary">Weather source: manual fallback (not fetched yet).</div>
+    </section>
+
+    <section>
+      <h2>Resource Lists</h2>
+      <div class="grid">
+        <div>
+          <h3>Students</h3>
+          <div id="studentsList" class="listBox">No records loaded.</div>
+        </div>
+        <div>
+          <h3>Instructors</h3>
+          <div id="instructorsList" class="listBox">No records loaded.</div>
+        </div>
+        <div>
+          <h3>Aircraft</h3>
+          <div id="aircraftList" class="listBox">No records loaded.</div>
+        </div>
+        <div>
+          <h3>Time Slots</h3>
+          <div id="timeSlotsList" class="listBox">No records loaded.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Results</h2>
+      <div class="cards">
+        <div class="card">Assigned count<strong id="assignedCount">-</strong></div>
+        <div class="card">Unassigned count<strong id="unassignedCount">-</strong></div>
+        <div class="card">Total students<strong id="totalStudents">-</strong></div>
+        <div class="card">Optimization score<strong id="optimizationScore">-</strong></div>
+      </div>
+      <h3>Assignment Table</h3>
+      <div id="assignmentTable">No schedule generated.</div>
+      <h3>Unassigned Students</h3>
+      <pre id="unassignedStudents">None</pre>
+      <h3>Explanations</h3>
+      <pre id="explanations">No explanations yet.</pre>
+    </section>
+  </main>
+
+  <script>
+    var state = {
+      students: [],
+      instructors: [],
+      aircraft: [],
+      timeSlots: []
+    };
+
+    function setStatus(message, kind) {
+      var box = document.getElementById("statusBox");
+      box.className = kind || "";
+      box.textContent = message;
+    }
+
+    function logApi(label, url, response, text) {
+      console.log("[FlightWise UI]", label, url, {
+        status: response ? response.status : "network-error",
+        ok: response ? response.ok : false,
+        responseText: text
+      });
+    }
+
+    async function apiFetch(label, url, options) {
+      console.log("[FlightWise UI] request", label, url, options || {});
+      try {
+        var response = await fetch(url, options || {});
+        var text = await response.text();
+        logApi(label, url, response, text);
+
+        var data = null;
+        try {
+          data = text ? JSON.parse(text) : null;
+        } catch (parseError) {
+          data = null;
+        }
+
+        if (!response.ok) {
+          setStatus(label + " failed. HTTP " + response.status + "\n" + text, "error");
+          return { ok: false, status: response.status, text: text, data: data };
+        }
+
+        return { ok: true, status: response.status, text: text, data: data };
+      } catch (error) {
+        console.error("[FlightWise UI] fetch error", label, url, error);
+        setStatus(label + " failed. Network or JavaScript error:\n" + String(error), "error");
+        return { ok: false, status: 0, text: String(error), data: null };
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderCheckboxList(containerId, items, type) {
+      var container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      if (!items || items.length === 0) {
+        container.textContent = "No records found.";
+        return;
+      }
+
+      items.forEach(function(item) {
+        var label = document.createElement("label");
+        label.className = "item";
+
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = item.id;
+        checkbox.className = "resourceCheckbox";
+        checkbox.setAttribute("data-type", type);
+
+        var display = item.id;
+        if (item.name) display += " - " + item.name;
+        if (item.tail_number) display += " - " + item.tail_number;
+        if (item.label) display += " - " + item.label;
+        if (item.active === false) display += " (inactive)";
+
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(" " + display));
+        container.appendChild(label);
+      });
+    }
+
+    async function seedDemoData() {
+      setStatus("Seeding demo data...", "");
+      var result = await apiFetch("Seed Demo Data", "/api/v1/seed-demo-data", { method: "POST" });
+      if (!result.ok) return;
+
+      setStatus("Seed demo data succeeded. Loading database records...", "success");
+      await loadDatabaseRecords();
+    }
+
+    async function loadDatabaseRecords() {
+      setStatus("Loading database records...", "");
+
+      var students = await apiFetch("Load Students", "/api/v1/students?active_only=false");
+      if (!students.ok) return;
+
+      var instructors = await apiFetch("Load Instructors", "/api/v1/instructors?active_only=false");
+      if (!instructors.ok) return;
+
+      var aircraft = await apiFetch("Load Aircraft", "/api/v1/aircraft?active_only=false");
+      if (!aircraft.ok) return;
+
+      var timeSlots = await apiFetch("Load Time Slots", "/api/v1/time-slots?active_only=false");
+      if (!timeSlots.ok) return;
+
+      state.students = (students.data && students.data.items) || [];
+      state.instructors = (instructors.data && instructors.data.items) || [];
+      state.aircraft = (aircraft.data && aircraft.data.items) || [];
+      state.timeSlots = (timeSlots.data && timeSlots.data.items) || [];
+
+      renderCheckboxList("studentsList", state.students, "students");
+      renderCheckboxList("instructorsList", state.instructors, "instructors");
+      renderCheckboxList("aircraftList", state.aircraft, "aircraft");
+      renderCheckboxList("timeSlotsList", state.timeSlots, "timeSlots");
+
+      setStatus(
+        "Loaded records: " +
+        state.students.length + " students, " +
+        state.instructors.length + " instructors, " +
+        state.aircraft.length + " aircraft, " +
+        state.timeSlots.length + " time slots.",
+        "success"
+      );
+    }
+
+    function selectedIds(type) {
+      var boxes = document.querySelectorAll('.resourceCheckbox[data-type="' + type + '"]:checked');
+      return Array.prototype.map.call(boxes, function(box) { return box.value; });
+    }
+
+    function splitCommaList(raw) {
+      return String(raw || "")
+        .split(",")
+        .map(function(x) { return x.trim(); })
+        .filter(function(x) { return x.length > 0; });
+    }
+
+    function toNumber(raw, fallback) {
+      var n = Number(raw);
+      return Number.isFinite(n) ? n : fallback;
+    }
+
+    function buildAllSlotsAvailability() {
+      var out = {};
+      state.timeSlots.forEach(function(slot) {
+        out[slot.id] = ["any"];
+      });
+      return out;
+    }
+
+    function parseInstructorAvailability() {
+      var manual = (document.getElementById("newInstructorAvailabilityJson").value || "").trim();
+      if (manual) {
+        try {
+          var parsed = JSON.parse(manual);
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+            return parsed;
+          }
+          throw new Error("availability override must be a JSON object");
+        } catch (error) {
+          setStatus("Instructor availability JSON invalid:\n" + String(error), "error");
+          return null;
+        }
+      }
+      if (document.getElementById("newInstructorAllSlots").checked) {
+        return buildAllSlotsAvailability();
+      }
+      return {};
+    }
+
+    async function createStudent() {
+      var payload = {
+        id: document.getElementById("newStudentId").value.trim(),
+        name: document.getElementById("newStudentName").value.trim(),
+        stage: document.getElementById("newStudentStage").value.trim() || "private",
+        lessons_completed: toNumber(document.getElementById("newStudentLessons").value, 0),
+        hours_total: toNumber(document.getElementById("newStudentHours").value, 0),
+        last_lesson_days_ago: toNumber(document.getElementById("newStudentLastDays").value, 0),
+        readiness_score: toNumber(document.getElementById("newStudentReadiness").value, 0.7),
+        priority: toNumber(document.getElementById("newStudentPriority").value, 50),
+        weak_maneuvers: splitCommaList(document.getElementById("newStudentWeak").value),
+        active: document.getElementById("newStudentActive").checked
+      };
+      var result = await apiFetch("Create Student", "/api/v1/students", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!result.ok) return;
+      setStatus("Student created successfully. Reloading database records...", "success");
+      await loadDatabaseRecords();
+    }
+
+    async function createInstructor() {
+      var availability = parseInstructorAvailability();
+      if (availability === null) return;
+      var payload = {
+        id: document.getElementById("newInstructorId").value.trim(),
+        name: document.getElementById("newInstructorName").value.trim(),
+        ratings: splitCommaList(document.getElementById("newInstructorRatings").value),
+        availability: availability,
+        max_daily_blocks: toNumber(document.getElementById("newInstructorBlocks").value, 4),
+        active: document.getElementById("newInstructorActive").checked
+      };
+      var result = await apiFetch("Create Instructor", "/api/v1/instructors", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!result.ok) return;
+      setStatus("Instructor created successfully. Reloading database records...", "success");
+      await loadDatabaseRecords();
+    }
+
+    async function createAircraft() {
+      var payload = {
+        id: document.getElementById("newAircraftId").value.trim(),
+        tail_number: document.getElementById("newAircraftTail").value.trim(),
+        type: document.getElementById("newAircraftType").value.trim() || "single_engine",
+        hours_since_inspection: toNumber(document.getElementById("newAircraftHoursSince").value, 0),
+        maintenance_due_hours: toNumber(document.getElementById("newAircraftMaintDue").value, 100),
+        reliability_score: toNumber(document.getElementById("newAircraftReliability").value, 0.9),
+        maintenance_status: document.getElementById("newAircraftMaintStatus").value.trim() || "good",
+        dispatchable: document.getElementById("newAircraftDispatchable").checked,
+        active: document.getElementById("newAircraftActive").checked
+      };
+      var result = await apiFetch("Create Aircraft", "/api/v1/aircraft", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!result.ok) return;
+      setStatus("Aircraft created successfully. Reloading database records...", "success");
+      await loadDatabaseRecords();
+    }
+
+    async function createTimeSlot() {
+      var payload = {
+        id: document.getElementById("newSlotId").value.trim(),
+        label: document.getElementById("newSlotLabel").value.trim(),
+        start: document.getElementById("newSlotStart").value,
+        end: document.getElementById("newSlotEnd").value,
+        active: document.getElementById("newSlotActive").checked
+      };
+      var result = await apiFetch("Create Time Slot", "/api/v1/time-slots", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!result.ok) return;
+      setStatus("Time slot created successfully. Reloading database records...", "success");
+      await loadDatabaseRecords();
+    }
+
+    function validateSelection(payload) {
+      if (payload.student_ids.length === 0) return "Please select at least one student.";
+      if (payload.instructor_ids.length === 0) return "Please select at least one instructor.";
+      if (payload.aircraft_ids.length === 0) return "Please select at least one aircraft.";
+      if (payload.time_slot_ids.length === 0) return "Please select at least one time slot.";
+      return "";
+    }
+
+    function currentDate() {
+      var d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+
+    function currentTime() {
+      var d = new Date();
+      var hh = String(d.getHours()).padStart(2, "0");
+      var mm = String(d.getMinutes()).padStart(2, "0");
+      return hh + ":" + mm;
+    }
+
+    function buildTimeSlotDisplay(assignment, selectedMap) {
+      var id = assignment.time_slot_id;
+      var row = selectedMap[id];
+      if (row) {
+        var base = row.label || id;
+        return base + " (" + row.start + "-" + row.end + ")";
+      }
+      return assignment.time_slot_label || id;
+    }
+
+    function renderWeatherSummary(data, requestPayload) {
+      var summary = document.getElementById("weatherSummary");
+      var wxTrace = data && data.trace && data.trace.weather;
+      var awc = wxTrace && wxTrace.awc;
+      if (awc && awc.ok) {
+        var b = awc.baseline_weather || {};
+        var source = "Weather source: METAR/TAF from " + (awc.icao || requestPayload.metar_taf_station || "");
+        var detail = "Wind: " + (b.wind_kts != null ? b.wind_kts : "?") +
+          " kt | Visibility: " + (b.visibility_sm != null ? b.visibility_sm : "?") +
+          " sm | Ceiling: " + (b.ceiling_ft != null ? b.ceiling_ft : "?") +
+          " ft | Precipitation: " + (b.precipitation ? "Yes" : "No");
+        var raw = "Raw METAR: " + (awc.metar_raw || "(none)");
+        summary.textContent = source + " | " + detail + " | " + raw;
+        return;
+      }
+      var fb = requestPayload.weather || {};
+      var warn = "Weather source: manual fallback";
+      if (requestPayload.weather_mode === "auto") {
+        warn += " (AviationWeather fetch unavailable or failed)";
+      }
+      summary.textContent = warn + " | Wind: " + (fb.wind_kts ?? "?") + " kt | Visibility: " + (fb.visibility_sm ?? "?") +
+        " sm | Ceiling: " + (fb.ceiling_ft ?? "?") + " ft | Precipitation: " + (fb.precipitation ? "Yes" : "No");
+    }
+
+    async function generateScheduleFromSelection() {
+      var mode = document.getElementById("modeInput").value;
+      var station = (document.getElementById("stationInput").value || "").trim().toUpperCase();
+      var payload = {
+        student_ids: selectedIds("students"),
+        instructor_ids: selectedIds("instructors"),
+        aircraft_ids: selectedIds("aircraft"),
+        time_slot_ids: selectedIds("timeSlots"),
+        date: document.getElementById("dateInput").value || currentDate(),
+        time: document.getElementById("timeInput").value || currentTime(),
+        weather_mode: mode,
+        weather: {
+          wind_kts: Number(document.getElementById("windInput").value || 10),
+          visibility_sm: Number(document.getElementById("visibilityInput").value || 10),
+          ceiling_ft: Number(document.getElementById("ceilingInput").value || 5000),
+          precipitation: document.getElementById("precipInput").checked
+        }
+      };
+      if (station) payload.metar_taf_station = station;
+
+      var validationError = validateSelection(payload);
+      if (validationError) {
+        setStatus(validationError, "error");
+        return;
+      }
+
+      setStatus("Generating schedule from selected resources...", "");
+
+      var result = await apiFetch("Generate Schedule From Selected Resources", "/api/v1/plan/from-selection", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!result.ok) return;
+
+      renderResults(result.data, payload);
+      setStatus("Schedule generated successfully.", "success");
+    }
+
+    function renderResults(data, requestPayload) {
+      data = data || {};
+      var summary = data.summary || {};
+      var solver = data.solver || {};
+      var assignments = data.assignments || [];
+      var explanations = data.explanations || [];
+      var unassigned = data.unassigned_students || [];
+
+      document.getElementById("assignedCount").textContent = summary.assigned_count != null ? summary.assigned_count : assignments.length;
+      document.getElementById("unassignedCount").textContent = summary.unassigned_count != null ? summary.unassigned_count : unassigned.length;
+      document.getElementById("totalStudents").textContent = summary.total_students != null ? summary.total_students : "-";
+      document.getElementById("optimizationScore").textContent = solver.objective_value != null ? solver.objective_value : "-";
+
+      renderAssignmentTable(assignments);
+      document.getElementById("unassignedStudents").textContent = unassigned.length ? unassigned.join("\n") : "None";
+      document.getElementById("explanations").textContent = explanations.length ? explanations.join("\n\n") : "No explanations returned.";
+      renderWeatherSummary(data, requestPayload || {});
+    }
+
+    function renderAssignmentTable(assignments) {
+      var target = document.getElementById("assignmentTable");
+      if (!assignments || assignments.length === 0) {
+        target.textContent = "No assignments returned.";
+        return;
+      }
+
+      var html = "<table><thead><tr>" +
+        "<th>Student</th><th>Instructor</th><th>Aircraft</th><th>Time Slot</th><th>Lesson</th>" +
+        "</tr></thead><tbody>";
+
+      var slotMap = {};
+      state.timeSlots.forEach(function(ts) { slotMap[ts.id] = ts; });
+      assignments.forEach(function(a) {
+        html += "<tr>" +
+          "<td>" + escapeHtml(a.student_name || a.student_id) + "</td>" +
+          "<td>" + escapeHtml(a.instructor_name || a.instructor_id) + "</td>" +
+          "<td>" + escapeHtml(a.aircraft_tail || a.aircraft_id) + "</td>" +
+          "<td>" + escapeHtml(buildTimeSlotDisplay(a, slotMap)) + "</td>" +
+          "<td>" + escapeHtml(a.lesson_type_name || a.lesson_type_id || "") + "</td>" +
+          "</tr>";
+      });
+
+      html += "</tbody></table>";
+      target.innerHTML = html;
+    }
+
+    function attachHandlers() {
+      document.getElementById("seedButton").addEventListener("click", seedDemoData);
+      document.getElementById("loadButton").addEventListener("click", loadDatabaseRecords);
+      document.getElementById("generateButton").addEventListener("click", generateScheduleFromSelection);
+      document.getElementById("createStudentButton").addEventListener("click", createStudent);
+      document.getElementById("createInstructorButton").addEventListener("click", createInstructor);
+      document.getElementById("createAircraftButton").addEventListener("click", createAircraft);
+      document.getElementById("createSlotButton").addEventListener("click", createTimeSlot);
+      document.getElementById("dateInput").value = currentDate();
+      document.getElementById("timeInput").value = currentTime();
+    }
+
+    attachHandlers();
+  </script>
+</body>
+</html>

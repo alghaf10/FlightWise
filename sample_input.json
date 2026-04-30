@@ -1,0 +1,135 @@
+{
+  "date": "2026-04-04",
+  "time_slots": [
+    {
+      "id": "slot_morning",
+      "start": "08:00",
+      "end": "10:00",
+      "label": "Morning block"
+    },
+    {
+      "id": "slot_mid",
+      "start": "10:30",
+      "end": "12:30",
+      "label": "Midday block"
+    },
+    {
+      "id": "slot_afternoon",
+      "start": "13:00",
+      "end": "15:00",
+      "label": "Afternoon block"
+    }
+  ],
+  "weather_by_slot": {
+    "slot_morning": {
+      "wind_kts": 12,
+      "visibility_sm": 10,
+      "ceiling_ft": 5500,
+      "precipitation": false
+    },
+    "slot_mid": {
+      "wind_kts": 8,
+      "visibility_sm": 10,
+      "ceiling_ft": 6000,
+      "precipitation": false
+    },
+    "slot_afternoon": {
+      "wind_kts": 18,
+      "visibility_sm": 8,
+      "ceiling_ft": 4500,
+      "precipitation": false
+    }
+  },
+  "students": [
+    {
+      "id": "S1",
+      "name": "Alex Rivera",
+      "stage": "private",
+      "lessons_completed": 3,
+      "hours_total": 8.5,
+      "last_lesson_days_ago": 5
+    },
+    {
+      "id": "S2",
+      "name": "Jordan Lee",
+      "stage": "private",
+      "lessons_completed": 12,
+      "hours_total": 22.0,
+      "last_lesson_days_ago": 18
+    },
+    {
+      "id": "S3",
+      "name": "Sam Okonkwo",
+      "stage": "instrument",
+      "lessons_completed": 8,
+      "hours_total": 45.0,
+      "last_lesson_days_ago": 4
+    },
+    {
+      "id": "S4",
+      "name": "Taylor Kim",
+      "stage": "instrument",
+      "lessons_completed": 15,
+      "hours_total": 62.0,
+      "last_lesson_days_ago": 25
+    }
+  ],
+  "instructors": [
+    {
+      "id": "I1",
+      "name": "Chris Patel",
+      "ratings": ["cfi", "private", "instrument"],
+      "availability": {
+        "slot_morning": ["N123AB", "N456CD"],
+        "slot_mid": ["N123AB", "any"],
+        "slot_afternoon": ["N456CD"]
+      }
+    },
+    {
+      "id": "I2",
+      "name": "Morgan Reyes",
+      "ratings": ["cfi", "private"],
+      "availability": {
+        "slot_morning": ["N456CD"],
+        "slot_mid": ["N123AB", "N456CD"],
+        "slot_afternoon": ["N123AB", "N456CD"]
+      }
+    }
+  ],
+  "aircraft": [
+    {
+      "id": "N123AB",
+      "tail_number": "N123AB",
+      "type": "single_engine",
+      "maintenance_due_hours": 100.0,
+      "hours_since_inspection": 82.0
+    },
+    {
+      "id": "N456CD",
+      "tail_number": "N456CD",
+      "type": "single_engine",
+      "maintenance_due_hours": 100.0,
+      "hours_since_inspection": 88.5
+    }
+  ],
+  "lesson_types": [
+    {
+      "id": "dual_vfr",
+      "name": "Dual VFR",
+      "min_stage": "private",
+      "suitable_stages": ["private", "instrument", "commercial"]
+    },
+    {
+      "id": "pattern_work",
+      "name": "Pattern / Landings",
+      "min_stage": "private",
+      "suitable_stages": ["private"]
+    },
+    {
+      "id": "ifr_vectors",
+      "name": "IFR Vectors",
+      "min_stage": "instrument",
+      "suitable_stages": ["instrument", "commercial"]
+    }
+  ]
+}
